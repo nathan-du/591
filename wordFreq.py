@@ -8,7 +8,7 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 #from sklearn.neighbors import KNeighborsClassifier
 
 #EDIT THIS TO READ THE TERMS FROM A FILE
-#print "Opening Files..."
+#print("Opening Files...")
 with open('./datafiles/electionwords.txt') as f:
 	dicElections = [line.strip() for line in f]
 with open('./datafiles/economywords.txt') as f:
@@ -84,7 +84,7 @@ testImmigrationInImmigration = [x for x in immigrationTestSelected if x.lower() 
 
 print("\n\n\n-------------------------------------------------------")
 #Build training set
-print("\nFor each dictionary, the percentage in which those words appear in each of the files: ")
+print("\nFor each dictionary, the percentage in which those words appear in each of the files: ") 
 categories = ["Economy", "Immigration", "Elections"]
 economyPercent = [round(float(100*len(economyWordsInEconomy))/len(economySelected), 4), round(float(100*len(immigrationWordsInEconomy))/len(economySelected), 4), round(float(100*len(electionsWordsInEconomy))/len(economySelected), 4)]
 immigrationPercent = [round(float(100*len(economyWordsInImmigration))/len(immigrationSelected), 4), round(float(100*len(immigrationWordsInImmigration))/len(immigrationSelected), 4), round(float(100*len(electionsWordsInImmigration))/len(immigrationSelected), 4)]
@@ -95,16 +95,16 @@ data = [economyPercent, immigrationPercent, electionsPercent]
 
 #PRINT MATRIX
 row_format = "{:>20}" * (len(categories) + 1)
-print row_format.format("", *categories)
+print(row_format.format("", *categories))
 for category, row in zip(categories, data):
-	print row_format.format(category, *row)
+	print(row_format.format(category, *row))
 
 totalEconomy = len(economyWordsInEconomy) + len(immigrationWordsInEconomy) + len(electionsWordsInEconomy)
 totalImmigration = len(economyWordsInImmigration) + len(immigrationWordsInImmigration) + len(electionsWordsInImmigration)
 totalElections = len(economyWordsInElections) + len(immigrationWordsInElections) + len(electionsWordsInElections)
 
-#print "TOTALS"
-#print totalEconomy, totalImmigration, totalElections
+#print("TOTALS")
+#print(totalEconomy, totalImmigration, totalElections)
 economyNormalized = [round(float(100*len(economyWordsInEconomy)) / totalEconomy, 4), round(float(100*len(immigrationWordsInEconomy)) / totalEconomy, 4), round(float(100*len(electionsWordsInEconomy)) / totalEconomy, 4)]
 immigrationNormalized = [round(float(100*len(economyWordsInImmigration)) / totalImmigration, 4), round(float(100*len(immigrationWordsInImmigration)) / totalImmigration, 4), round(float(100*len(electionsWordsInImmigration)) / totalImmigration, 4)]
 electionsNormalized = [round(float(100*len(economyWordsInElections)) / totalElections, 4), round(float(100*len(immigrationWordsInElections)) / totalElections, 4), round(float(100*len(electionsWordsInElections)) / totalElections, 4)]
@@ -113,9 +113,9 @@ normalizedData = [economyNormalized, immigrationNormalized, electionsNormalized]
 
 #PRINT NORMALIZED MATRIX
 print("\n\nNormalized values: ")
-print row_format.format("", *categories)
+print(row_format.format("", *categories))
 for category, row in zip(categories, normalizedData):
-	print row_format.format(category, *row)
+	print(row_format.format(category, *row))
 
 # Labels: Economy (0), Immigration (1), Elections(2)
 x = [economyNormalized, immigrationNormalized, electionsNormalized]
@@ -127,9 +127,9 @@ valuesImmigration = [len(testImmigrationInEconomy), len(testImmigrationInImmigra
 values = [valuesEconomy, valuesImmigration, valuesElections]
 
 print("\n\nMatching words in the test files: ")
-print row_format.format("", *categories)
+print(row_format.format("", *categories))
 for category, row in zip(categories, values):
-	print row_format.format(category+" Test:", *row)
+	print(row_format.format(category+" Test:", *row))
 
 
 print("\n\nReal class: Economy. Prediction: " + ("Economy", "Elections", "Immigration")[valuesEconomy.index(max(valuesEconomy))])
